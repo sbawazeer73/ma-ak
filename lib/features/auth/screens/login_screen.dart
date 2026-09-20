@@ -7,6 +7,7 @@ import 'package:maak_app/features/auth/screens/reset_password_screen.dart';
 import 'package:maak_app/features/auth/screens/choose_role_screen.dart';
 import 'package:maak_app/features/support_seeker/screens/patient_shell.dart';
 import 'package:maak_app/features/volunteer/screens/volunteer_shell.dart';
+import 'package:maak_app/features/admin/screens/admin_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,14 +43,21 @@ class _LoginScreenState extends State<LoginScreen> {
       // letting them pick one.
       final role = await SupabaseService.getMyRole();
       if (!mounted) return;
+
+
       Widget destination;
+      
       if (role == 'help_seeker') {
         destination = const PatientShell();
       } else if (role == 'volunteer') {
         destination = const VolunteerShell();
+      } else if (role == 'admin') {
+        destination = const AdminDashboardScreen();
       } else {
         destination = const ChooseRoleScreen();
       }
+
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => destination),
       );

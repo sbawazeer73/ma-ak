@@ -201,4 +201,44 @@ class SupabaseService {
       'status': 'pending_review',
     });
   }
+
+
+
+
+
+
+// ---------------- Admin ----------------
+
+static Future<List<Map<String, dynamic>>> getVolunteerApplications() async {
+  final response = await client
+      .from('volunteer_profiles')
+      .select()
+      .order('created_at', ascending: false);
+
+  return List<Map<String, dynamic>>.from(response);
+}
+
+static Future<void> approveVolunteerApplication(String userId) async {
+  await client
+      .from('volunteer_profiles')
+      .update({
+        'status': 'approved',
+      })
+      .eq('user_id', userId);
+}
+
+static Future<void> rejectVolunteerApplication({
+  required String userId,
+  required String reason,
+}) async {
+  await client
+      .from('volunteer_profiles')
+      .update({
+        'status': 'rejected',
+        'rejection_reason': reason,
+      })
+      .eq('user_id', userId);
+}
+
+
 }

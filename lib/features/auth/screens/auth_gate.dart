@@ -4,6 +4,7 @@ import 'package:maak_app/core/services/supabase_service.dart';
 import 'package:maak_app/features/auth/screens/choose_role_screen.dart';
 import 'package:maak_app/features/support_seeker/screens/patient_shell.dart';
 import 'package:maak_app/features/volunteer/screens/volunteer_shell.dart';
+import 'package:maak_app/features/admin/screens/admin_dashboard.dart';
 
 /// Shown at app start when a session already exists (the user closed the
 /// app without logging out). Looks up their saved role and routes them
@@ -26,6 +27,8 @@ class AuthGate extends StatelessWidget {
             return const PatientShell();
           case 'volunteer':
             return const VolunteerShell();
+          case 'admin':
+            return const AdminDashboardScreen();
           default:
             return const ChooseRoleScreen();
         }
